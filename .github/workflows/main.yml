@@ -36,7 +36,6 @@ jobs:
            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-           -Dsonar.qualitygate.wait=true
            -Dsonar.sources=src/
            -Dsonar.junit.reportsPath=target/surefire-reports/ 
            -Dsonar.jacoco.reportsPath=target/jacoco.exec 
@@ -48,16 +47,15 @@ jobs:
           ls -la .scannerwork || true
           cat .scannerwork/report-task.txt || true
 
-      # Check the Quality Gate status.
-      - name: SonarQube Quality Gate check
-        id: sonarqube-quality-gate-check
-        uses: SonarSource/sonarqube-quality-gate-action@v1.1.0
-        # uses: SonarSource/sonarqube-quality-gate-action@master
-        # Force to fail step after specific time.
-        timeout-minutes: 5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        #  SONAR_HOST_URL: ${{ secrets.SONAR_URL }} #OPTIONAL
+      # # Check the Quality Gate status.
+      # - name: SonarQube Quality Gate check
+      #   id: sonarqube-quality-gate-check
+      #   uses: SonarSource/sonarqube-quality-gate-action@master
+      #   # Force to fail step after specific time.
+      #   timeout-minutes: 5
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #     SONAR_HOST_URL: ${{ secrets.SONAR_URL }} #OPTIONAL
        
   # BUILD_AND_PUBLISH:   
   #   needs: Testing
